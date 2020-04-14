@@ -17,9 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    
     private TextView textViewResult;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
-
+    private String key = BuildConfig.ApiKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         textViewResult = findViewById(R.id.text_view_result);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f9cc014fa76b098f9e82f1c288379ea1&tags=kitten&page=1&format=json&nojsoncallback=1/")
+                .baseUrl("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="+key+"&tags=kitten&page=1&format=json&nojsoncallback=1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getImages(){
-        Call<ApiResult> call = jsonPlaceHolderApi.getImages("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f9cc014fa76b098f9e82f1c288379ea1&tags=kitten&page=1&format=json&nojsoncallback=1/");
+        Call<ApiResult> call = jsonPlaceHolderApi.getImages("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="+key+"&tags=kitten&page=1&format=json&nojsoncallback=1/");
         call.enqueue(new Callback<ApiResult>() {
             @Override
             public void onResponse(Call<ApiResult> call, Response<ApiResult> response) {
